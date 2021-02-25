@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Cookies from 'universal-cookie';
-
+import Navbar from '../components/Navbar/Navbar' 
+import '../css/Menu.css';
 const cookies = new Cookies();
 
 class Menu extends Component{
@@ -27,10 +28,7 @@ class Menu extends Component{
         console.log('authorities: '+cookies.get('authorities'));
         return (
             <div>
-                Menu Principal
-
-                <br />
-                <button onClick={()=>this.cerrarSesion()}>Cerrar Sesión</button>
+                <Navbar />
             </div>
         );
     }
