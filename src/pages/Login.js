@@ -25,11 +25,6 @@ class Login extends Component {
     }
 
 
-    iniciarSesion2(){
-        console.log(this.state.form.username);
-        console.log(this.state.form.password);
-    }
-
 
     iniciarSesion=async()=>{
         await axios.post(baseUrl, {username: this.state.form.username, password: this.state.form.password})
@@ -90,7 +85,9 @@ class Login extends Component {
               onChange={this.handleChange}
             />
             <br />
-            <button className="btn btn-primary" onClick={()=> this.iniciarSesion()}>Iniciar Sesión</button>
+            <button 
+                className="btn btn-primary" 
+                onClick={()=> this.iniciarSesion()}>Iniciar Sesión</button>
           </div>
         </div>
       </div>

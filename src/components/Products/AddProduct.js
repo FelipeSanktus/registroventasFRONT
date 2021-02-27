@@ -1,18 +1,42 @@
+import Cookies from 'universal-cookie';
+import axios from 'axios';
 import React,{useState} from 'react';
 import Navbar from '../Navbar/Navbar'
+import {withRouter} from 'react-router-dom';
+
+const AddProduct = (props) => {
+
+    const cookies = new Cookies();
+    const userId = cookies.get("id");
+    const urlBase = `http://localhost:8080/user/${userId}/products`
+    let token = cookies.get('token');
+   // console.log(token)
 
 
-const AddProduct = () => {
+
     const [product, setProduct] = useState({
         name:'',
         description:'',
         price:''
     });
 
+    
+    
 
     const handleSubmit = (e)=>{
         e.preventDefault();
+        saveProduct();
         //saveproduct
+    }
+
+    const saveProduct = async ()  =>{
+        console.log(token);
+        const response = await axios.post(urlBase,product,{headers: {
+            'Authorization': `${token}` 
+          }});
+        if(response.status == 200){
+            props.history.push('/products');
+        }
     }
 
     const handleChange= (e)=>{
@@ -58,13 +82,13 @@ const AddProduct = () => {
                   min="1"
                   step="any"
                   className="form-control"
-                  name="name"
+                  name="price"
                   placeholder="Enter a product price"
                   defaultValue={product.price}
                   onChange={handleChange}
                   required/>
              </div>
-             <button 
+             <button    
                  type="submit"
                  className="btn btn-primary"
              >Save product</button>
@@ -77,7 +101,7 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct;
+export default withRouter(AddProduct);
 
 
 

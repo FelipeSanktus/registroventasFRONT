@@ -9,7 +9,6 @@ import AddProduct from '../components/Products/AddProduct';
 function Routes() {
   return (
     <BrowserRouter>
-
       <Switch>
         <Route exact path="/" component={Login}/>
         <Route exact path="/menu" component={Menu}/>

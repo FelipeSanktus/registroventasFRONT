@@ -1,6 +1,6 @@
-import React from 'react';
+
 import Navbar from '../components/Navbar/Navbar';
-import Rect, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import Product from '../components/Products/Product';
@@ -15,6 +15,7 @@ function Products() {
   let url = formatUrl(id); 
 
   const getProducts = async () =>{
+    
       const response = await axios.get(url,{headers: {
         'Authorization': `${token}` 
       }});
@@ -38,6 +39,7 @@ function Products() {
           id = {product.id}
           name = {product.name}
           description = {product.description}
+          price = {product.price}
           status = {product.status}
           />
             
@@ -47,6 +49,10 @@ function Products() {
     )
   }
    
+  const addProduct = ()=>{
+    window.location.href="./product/add";
+    //saveproduct
+  }
 
 
   return (
@@ -59,7 +65,14 @@ function Products() {
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col">Price</th>
+      <th scope="col"> <button 
+                 type="submit"
+                 className="btn btn-primary"
+                 onClick={()=> window.location.href="./product/add"}
+             >New product</button></th>
     </tr>
+
+    
   </thead>
     {renderProducts()}
 </table>
