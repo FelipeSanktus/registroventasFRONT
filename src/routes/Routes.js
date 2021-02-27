@@ -4,6 +4,7 @@ import Login from '../pages/Login'
 import Menu from '../pages/Menu'
 import Products from '../pages/Products';
 import AddProduct from '../components/Products/AddProduct';
+import EditProduct from '../components/Products/EditProduct';
 //import Navbar from '../components/Navbar/Navbar';
 
 function Routes() {
@@ -14,6 +15,7 @@ function Routes() {
         <Route exact path="/menu" component={Menu}/>
         <Route exact path="/products" component={Products}/>
         <Route exact path="/product/add" component={AddProduct}/>
+        <Route exact path="/product/:id/edit" component={EditProduct}/>
       </Switch>
     
     </BrowserRouter>

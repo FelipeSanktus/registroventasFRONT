@@ -34,7 +34,7 @@ const AddProduct = (props) => {
         const response = await axios.post(urlBase,product,{headers: {
             'Authorization': `${token}` 
           }});
-        if(response.status == 200){
+        if(response.status === 200){
             props.history.push('/products');
         }
     }

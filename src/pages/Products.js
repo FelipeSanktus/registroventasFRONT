@@ -5,21 +5,22 @@ import Cookies from 'universal-cookie';
 import axios from 'axios';
 import Product from '../components/Products/Product';
 
-function Products() {
+const Products = () =>  {
 
   const cookies = new Cookies();
   const [products, setProducts] = useState([])
-  const formatUrl = (name, age) => `http://localhost:8080/user/${id}/products`;
-  let id = cookies.get('id');
+  const formatUrl = (name, age) => `http://localhost:8080/user/${userid}/products`;
+  let userid = cookies.get('id');
   let token = cookies.get('token');
-  let url = formatUrl(id); 
+  let url = formatUrl(userid); 
+
 
   const getProducts = async () =>{
     
       const response = await axios.get(url,{headers: {
         'Authorization': `${token}` 
       }});
-      console.log(response.data['content']);
+     
 
       setProducts(response.data['content']);
   }
@@ -27,6 +28,25 @@ function Products() {
   useEffect(() => {
     getProducts();
   }, [])
+
+  const handleDelete = (id) =>{
+    const finalUrl = url+`/${id}`;
+    axios.delete(finalUrl,{headers: {
+      'Authorization': `${token}` 
+    }})
+    .then(
+      res=> {
+        if(res.status != 200){
+          alert("Can't delete this resource")
+        }
+        else{
+          alert("Product eliminated")
+          getProducts();
+        }
+      }
+    )
+  }
+
 
   const renderProducts = () =>{
     return (
@@ -41,6 +61,8 @@ function Products() {
           description = {product.description}
           price = {product.price}
           status = {product.status}
+          onDelete = {handleDelete}
+
           />
             
         ))
@@ -65,6 +87,7 @@ function Products() {
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col">Price</th>
+      <th scope="col">Status</th>
       <th scope="col"> <button 
                  type="submit"
                  className="btn btn-primary"
