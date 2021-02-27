@@ -1,14 +1,71 @@
 import React from 'react';
 import Navbar from '../components/Navbar/Navbar';
+import Rect, {useEffect, useState} from 'react';
+import Cookies from 'universal-cookie';
+import axios from 'axios';
+import Product from '../components/Products/Product';
 
 function Products() {
+
+  const cookies = new Cookies();
+  const [products, setProducts] = useState([])
+  const formatUrl = (name, age) => `http://localhost:8080/user/${id}/products`;
+  let id = cookies.get('id');
+  let token = cookies.get('token');
+  let url = formatUrl(id); 
+
+  const getProducts = async () =>{
+      const response = await axios.get(url,{headers: {
+        'Authorization': `${token}` 
+      }});
+      console.log(response.data['content']);
+
+      setProducts(response.data['content']);
+  }
+
+  useEffect(() => {
+    getProducts();
+  }, [])
+
+  const renderProducts = () =>{
+    return (
+      <tbody>
+      {
+        products.map((product, index)  =>(
+          <Product
+          key = {index}
+          index = {index}
+          id = {product.id}
+          name = {product.name}
+          description = {product.description}
+          status = {product.status}
+          />
+            
+        ))
+      }
+      </tbody>
+    )
+  }
+   
+
+
   return (
     <div>
     <Navbar />
-    <div className='products'>
-      <h1>Products</h1>
+    <table className="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+    {renderProducts()}
+</table>
+   
     </div>
-    </div>
+  
    
   );
 }
