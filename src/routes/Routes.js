@@ -5,7 +5,11 @@ import Menu from '../pages/Menu'
 import Products from '../pages/Products';
 import AddProduct from '../components/Products/AddProduct';
 import EditProduct from '../components/Products/EditProduct';
+import Historys from '../pages/Historys';
+import Logout from '../components/Logout';
+import SoldProducts from '../pages/SoldProducts';
 //import Navbar from '../components/Navbar/Navbar';
+
 
 function Routes() {
   return (
@@ -16,6 +20,9 @@ function Routes() {
         <Route exact path="/products" component={Products}/>
         <Route exact path="/product/add" component={AddProduct}/>
         <Route exact path="/product/:id/edit" component={EditProduct}/>
+        <Route exact path="/history" component={Historys}/>
+        <Route exact path="/logout" component={Logout}/>
+        <Route exact path="/sold" component={SoldProducts}/>
       </Switch>
     
     </BrowserRouter>

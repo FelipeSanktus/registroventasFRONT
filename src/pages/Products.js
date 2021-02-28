@@ -1,4 +1,3 @@
-
 import Navbar from '../components/Navbar/Navbar';
 import React, {useEffect, useState} from 'react';
 import Cookies from 'universal-cookie';
@@ -9,20 +8,19 @@ const Products = () =>  {
 
   const cookies = new Cookies();
   const [products, setProducts] = useState([])
-  const formatUrl = (name, age) => `http://localhost:8080/user/${userid}/products`;
   let userid = cookies.get('id');
   let token = cookies.get('token');
-  let url = formatUrl(userid); 
+  const url= `http://localhost:8080/user/${userid}/products`;
 
 
   const getProducts = async () =>{
     
-      const response = await axios.get(url,{headers: {
+      const response = await axios.get(url+"/all",{headers: {
         'Authorization': `${token}` 
       }});
      
-
-      setProducts(response.data['content']);
+      console.log(response.data)
+      setProducts(response.data);
   }
 
   useEffect(() => {
