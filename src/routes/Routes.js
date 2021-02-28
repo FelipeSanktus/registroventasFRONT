@@ -8,6 +8,7 @@ import EditProduct from '../components/Products/EditProduct';
 import Historys from '../pages/Historys';
 import Logout from '../components/Logout';
 import SoldProducts from '../pages/SoldProducts';
+import LostProducts from '../pages/LostProducts';
 //import Navbar from '../components/Navbar/Navbar';
 
 
@@ -23,6 +24,7 @@ function Routes() {
         <Route exact path="/history" component={Historys}/>
         <Route exact path="/logout" component={Logout}/>
         <Route exact path="/sold" component={SoldProducts}/>
+        <Route exact path="/lost" component={LostProducts}/>
       </Switch>
     
     </BrowserRouter>

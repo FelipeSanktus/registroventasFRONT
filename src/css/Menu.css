@@ -14,3 +14,11 @@
     align-items: center;
     
 }
+
+.container-div{ 
+    Display: flex;
+    Height: 70vh;
+    Width: 70vw; 
+    Align-Items: center;
+    Justify-Content: centre;
+}

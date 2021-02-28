@@ -13,31 +13,31 @@ export const SidebarData=[
     {
         title: 'Products',
         path: '/products',
-        icon:  <AiIcons.AiFillDatabase/>,
+        icon:  <AiIcons.AiOutlineShopping/>,
         cName: 'nav-text'
     },
     {
         title: 'History',
         path: '/history',
-        icon:  <AiIcons.AiFillFolder/>,
+        icon:  <AiIcons.AiOutlineRead/>,
         cName: 'nav-text'
     },
     {
         title: 'Sold',
         path: '/sold',
-        icon:  <AiIcons.AiFillHome/>,
+        icon:  <AiIcons.AiOutlineDollarCircle/>,
         cName: 'nav-text'
     },
     {
         title: 'Lost',
         path: '/lost',
-        icon:  <AiIcons.AiFillHome/>,
+        icon:  <AiIcons.AiOutlineFrown/>,
         cName: 'nav-text'
     },
     {
         title: 'Logout',
         path: '/logout',
-        icon:  <AiIcons.AiFillHome/>,
+        icon:  <AiIcons.AiOutlineApi/>,
         cName: 'nav-text'
     },
 ]

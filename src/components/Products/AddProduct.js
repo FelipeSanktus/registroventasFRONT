@@ -29,6 +29,14 @@ const AddProduct = (props) => {
         //saveproduct
     }
 
+    const handleChange= (e)=>{
+        setProduct({
+            ...product,
+            [e.target.name]: e.target.value
+
+        });
+    };
+
     const saveProduct = async ()  =>{
         console.log(token);
         const response = await axios.post(urlBase,product,{headers: {
@@ -39,13 +47,7 @@ const AddProduct = (props) => {
         }
     }
 
-    const handleChange= (e)=>{
-        setProduct({
-            ...product,
-            [e.target.name]: e.target.value
-
-        });
-    };
+    
 
     return (
         <div>
