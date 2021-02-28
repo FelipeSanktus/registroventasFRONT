@@ -11,20 +11,43 @@ const EditProduct = (props) => {
     const userId = cookie.get("id");
     const token = cookie.get("token");
     const urlBase = `http://localhost:8080/user/${userId}/`;
+   
     
 
     const {id} = props.match.params;
+
+
+
+    const options = [
+        {
+          label: "In Inventory",
+          value: 0,
+        },
+        {
+          label: "Sold",
+          value: 1,
+        },
+        {
+          label: "Lost",
+          value: 2,
+        }
+       
+      ];
+
     const [product, setProduct] = useState({
         name:'',
         description:'',
-        price:''
+        price:'',
+        state:0
     });
 
     const handleChange = (e) =>{
         setProduct({
             ...product,
             [e.target.name]: e.target.value
+           
         })
+        console.log(e.target.value);
     }
 
     const handleSubmit = (e) =>{
@@ -34,17 +57,22 @@ const EditProduct = (props) => {
     }
 
     const saveProduct = ()  =>{
+        console.log(product);
         axios.put(urlBase+`products/${id}`,product,{
             headers: {
             'Authorization': `${token}` 
           }}).
         then(res =>{
-            console.log(res);
+            
             if(res.status == 200){
                 props.history.push('/products');
             }
         })
     };
+
+    
+
+      
 
 
     useEffect(() => {
@@ -75,6 +103,8 @@ const EditProduct = (props) => {
         getProduct();
 
     }, [id]);
+
+    
 
     return  (
         <div>
@@ -118,17 +148,13 @@ const EditProduct = (props) => {
                   required/>
              </div>
              <div className="form-group">
+                  
                   <label htmlFor="price">Product status</label>
-                  <input
-                  type="number"
-                  min="0"
-                  max="2"
-                  className="form-control"
-                  name="status"
-                  placeholder="Enter a product status"
-                  defaultValue={product.status}
-                  onChange={handleChange}
-                  required/>
+                  <select className="form-select" name ="status" key={product.state} defaultValue={product.state} onChange={handleChange}>
+                        {options.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                        ))}
+                 </select>
              </div>
              
              <button    

@@ -13,6 +13,7 @@ const SoldProducts = () =>{
     const [amount, setAmount] = useState("");
     const [quantity, setQuantity] = useState("");
     const [date, setDate] = React.useState("");
+    
     let userId = cookies.get('id');
     
     const url =  `http://localhost:8080/user/${userId}/sold/items`;
@@ -59,7 +60,7 @@ const SoldProducts = () =>{
   }
 
   const updateProduct = async (fecha)  =>{
-    console.log(fecha);
+    console.log(fecha)
     let urlBase = `http://localhost:8080/user/${userId}/sold/items/${fecha}`
     console.log(urlBase);
     const response = await axios.get(urlBase,{headers: {

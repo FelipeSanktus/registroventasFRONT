@@ -11,7 +11,7 @@ const Products = () =>  {
   let userid = cookies.get('id');
   let token = cookies.get('token');
   const url= `http://localhost:8080/user/${userid}/products`;
-
+  const productstate = ["In Inventory", "Sold", "Lost"];
 
   const getProducts = async () =>{
     
@@ -58,7 +58,7 @@ const Products = () =>  {
           name = {product.name}
           description = {product.description}
           price = {product.price}
-          status = {product.status}
+          status = {productstate[product.status]}
           onDelete = {handleDelete}
 
           />
