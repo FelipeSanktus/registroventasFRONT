@@ -3,21 +3,29 @@ import React, {useEffect, useState} from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import SoldProduct from '../components/Products/SoldProduct';
-import Calendar from '../components/Calendar';
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
 
-let amount = 0;
+
 
 const SoldProducts = () =>{
     const cookies = new Cookies();
     const [soldproducts, setSoldProducts] = useState([])
     const [amount, setAmount] = useState("");
     const [quantity, setQuantity] = useState("");
-    const [date, setDate] = React.useState("");
-    
+    const [date, setDate] = useState(new Date());
     let userId = cookies.get('id');
-    
     const url =  `http://localhost:8080/user/${userId}/sold/items`;
     let token = cookies.get('token');
+    let datearray =  date.toLocaleDateString("en-US").split("/")
+    let fecha;
+    if(datearray[0].length == 1){
+      fecha = `${datearray[2]}0${datearray[0]}${datearray[1]}`;
+    }
+    else{
+      fecha =`${datearray[2]}${datearray[2]}${datearray[1]}`;
+    }
+    
 
     const getSoldProducts = async () =>{
         const response = await axios.get(url,{headers: {
@@ -27,20 +35,12 @@ const SoldProducts = () =>{
             setSoldProducts(response.data.products);
             setAmount(response.data.totalAmount);
             setQuantity(response.data.itemQuantiyty);
-          //  cookies.remove('amount', {path: "/"});
-          //  cookies.set("amount",response.data.totalAmount,"/");
-           // setAmount(response.data.totalAmount);
-            //setQuantity(response.data.itemQuantiyty);
-           // setAmount(response.totalAmount);
-       
-           
           }
           else{
               alert("A Error");
           }
         }); 
         
-
     }
 
     useEffect(() => {
@@ -48,40 +48,48 @@ const SoldProducts = () =>{
     }, [])
 
 
-    
 
- 
 
-  const handleTitleChange = ev => {
-    setDate(ev.target.value);
-    console.log("entro mama");
-    updateProduct(date);
-  
-  }
-
-  const updateProduct = async (fecha)  =>{
-    console.log(fecha)
-    let urlBase = `http://localhost:8080/user/${userId}/sold/items/${fecha}`
-    console.log(urlBase);
-    const response = await axios.get(urlBase,{headers: {
-        'Authorization': `${token}` 
-      }});
-    if(response.status === 200){
-      if(response.data != ""){
-        console.log(response);
-        setSoldProducts(response.data.products);
-        setAmount(response.data.totalAmount);
-        setQuantity(response.data.itemQuantiyty);
+    const handleChange= (e)=>{
+      console.log(e);
+      let datearray =  e.toLocaleDateString("en-US").split("/")
+      let fecha;
+      if(datearray[0].length == 1){
+        fecha = `${datearray[2]}0${datearray[0]}${datearray[1]}`;
       }
+      else{
+        fecha =`${datearray[2]}${datearray[2]}${datearray[1]}`;
+      }
+      let urlBase = `http://localhost:8080/user/${userId}/sold/items/${fecha}`
+      console.log("fecha "+fecha);
+      console.log("url "+urlBase);
+      const response = axios.get(urlBase,{headers: {
+        'Authorization': `${token}` 
+      }}).then(response =>{
+        console.log(response);
+        if(response.status === 200){
+          if(response.data != ""){
+            console.log(response);
+            setSoldProducts(response.data.products);
+            setAmount(response.data.totalAmount);
+            setQuantity(response.data.itemQuantiyty);
+          }
+            else{
+              alert("No items found");
+              setSoldProducts("");
+              setAmount(0);
+              setQuantity(0);
+            }
+    
+        }
         else{
           alert("No items found");
         }
-
-    }
-    else{
-      alert("No items found");
-    }
-}
+      });
+      
+  };
+ 
+ 
 
 
     const renderProducts = () =>{
@@ -105,6 +113,8 @@ const SoldProducts = () =>{
       )
     }
 
+    
+
   
 
 
@@ -121,14 +131,8 @@ const SoldProducts = () =>{
         <th scope="col">Sale date</th>
         <th scope="col">Total amount: ${amount}</th>
         <th scope="col">Item quantity: {quantity}</th>
-        <th scope="col"> 
-        <form >          
-          <label className="filter">Date:</label>
-         <input 
-         type="date" 
-         name = "date"
-         onChange={handleTitleChange}/>
-          </form>
+        <th scope="col">Filter:
+        <DatePicker selected={date} format="yyyy-dd-mm" onChange={handleChange}  />
         </th>
       
       </tr>

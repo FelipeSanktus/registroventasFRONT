@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 const Product = ({index,id,name,description,price,status, onDelete}) => (
     
+    
     <tr key={index}>
             <th scope="row">{index+1}</th>
             <td> {name}</td>
