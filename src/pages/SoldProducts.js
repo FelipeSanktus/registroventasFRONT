@@ -76,9 +76,7 @@ const SoldProducts = () =>{
           }
             else{
               alert("No items found");
-              setSoldProducts("");
-              setAmount(0);
-              setQuantity(0);
+              
             }
     
         }
