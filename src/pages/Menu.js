@@ -18,15 +18,14 @@ class Menu extends Component{
     }
 
     render() {
-
         return (
             <div>
                 <Navbar />
                 <div className="container-div">
-                    <div className="logo">
-                     <img src={logo} />
-                     </div>
-                    </div>
+                   
+                     <img className="logo" src={logo}  />
+                  
+                </div>
             </div>
         );
     }

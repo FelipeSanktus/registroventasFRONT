@@ -21,4 +21,10 @@
     Width: 70vw; 
     Align-Items: center;
     Justify-Content: centre;
+    padding: center;
+}
+
+.logo{
+    width: 100%;
+    margin-left: 30%;
 }
