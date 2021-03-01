@@ -51,15 +51,25 @@ const SoldProducts = () =>{
 
 
     const handleChange= (e)=>{
-      console.log(e);
       let datearray =  e.toLocaleDateString("en-US").split("/")
       let fecha;
+      let day;
+      let month;
+      let anio = datearray[2];
       if(datearray[0].length == 1){
-        fecha = `${datearray[2]}0${datearray[0]}${datearray[1]}`;
+        month = `0${datearray[0]}`
       }
       else{
-        fecha =`${datearray[2]}${datearray[2]}${datearray[1]}`;
+        month =`${datearray[0]}`;
       }
+      if(datearray[1].length == 1){
+        day =  `0${datearray[1]}`
+      }
+      else{
+        day = `${datearray[1]}`
+      }
+      fecha = anio+month+day;
+      console.log(fecha);
       let urlBase = `http://localhost:8080/user/${userId}/sold/items/${fecha}`
       console.log("fecha "+fecha);
       console.log("url "+urlBase);
